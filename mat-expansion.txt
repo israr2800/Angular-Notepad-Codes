@@ -1,0 +1,150 @@
+<mat-accordion>
+                      
+                    <mat-expansion-panel hideToggle>
+                        <mat-expansion-panel-header>
+                            <i class="fa-solid fa-box"></i>
+                            Dashboard
+                        </mat-expansion-panel-header>
+                    </mat-expansion-panel>
+                    <mat-expansion-panel hideToggle>
+                        <mat-expansion-panel-header>
+                            <i class="fa-solid fa-folder-tree"></i>
+                            Orders
+                        </mat-expansion-panel-header>
+                    </mat-expansion-panel>
+                    <mat-expansion-panel hideToggle>
+                        <mat-expansion-panel-header>
+                            <i class="fa-solid fa-user-check"></i>
+                            Manage Profile
+                        </mat-expansion-panel-header>
+                    </mat-expansion-panel>
+
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <i class="fa-solid fa-bars-staggered"></i>
+                            Others
+                        </mat-expansion-panel-header>
+
+                        <mat-panel-description>
+                            <mat-panel-title>
+                                Level 1
+                            </mat-panel-title>
+                            <mat-panel-title>
+                                Level 2
+                            </mat-panel-title>
+                            <mat-panel-title>
+                                Level 3
+                            </mat-panel-title>
+                        </mat-panel-description>
+
+                    </mat-expansion-panel>
+            
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <i class="fa-solid fa-list-check"></i>
+                            Multi level Menus
+                        </mat-expansion-panel-header>
+                        <mat-panel-description>
+                            <mat-panel-title>
+                                Single Level
+                            </mat-panel-title>
+            
+                            <mat-expansion-panel>
+                                <mat-expansion-panel-header>
+                                    Multilevel menu
+                                </mat-expansion-panel-header>
+            
+                                <mat-panel-description>
+                                    <mat-panel-title>
+                                        level 1
+                                    </mat-panel-title>
+            
+                                    <mat-expansion-panel>
+                                        <mat-expansion-panel-header>
+                                            Multilevel menu 2
+                                        </mat-expansion-panel-header>
+                                        <mat-panel-description>
+                                            <mat-panel-title>
+                                                level 2
+                                            </mat-panel-title>
+                                        </mat-panel-description>
+                                    </mat-expansion-panel>
+            
+                                </mat-panel-description>
+                            </mat-expansion-panel>
+            
+            
+                        </mat-panel-description>
+                    </mat-expansion-panel>
+            
+                </mat-accordion>
+
+
+
+
+
+mat-accordion {
+        mat-expansion-panel {
+            box-shadow: none !important;
+            border-radius: 0 !important;
+            background: none;
+            margin: 0;
+            border-bottom: $border-light;
+            mat-expansion-panel-header {
+                height: auto;
+                font-size: $medium;
+                font-weight: $normal;
+                &.mat-expanded {
+                    height: auto;
+                }
+                .mat-content {
+                    align-items: center;
+                    svg, .icon {
+                        margin-right: 5px;
+                        width: 20px;
+                    }
+                }
+                color: $dark;
+                padding: 16px 12px;
+                .mat-expansion-indicator {
+                    &::after {
+                        color: $dark;
+                    }
+                }
+            }
+            mat-panel-description {
+                display: block;
+                margin-right: 0;
+                font-size: $medium;
+                font-weight: $normal;
+                mat-panel-title {
+                    color: $dark;
+                    cursor: pointer;
+                    padding: 16px 12px;
+                    margin-right: 0;
+                    &:hover {
+                        background: $secondary;
+                        color: $white !important;
+                    }
+                }
+            }
+            .mat-expansion-panel-content {
+                background: rgb(0 0 0 / 3%);
+                .mat-expansion-panel-body {
+                    padding: 0;
+                }
+            }
+        }
+        .mat-expansion-panel:not(.mat-expanded):not([aria-disabled=true]) .mat-expansion-panel-header:hover {
+            background: $secondary;
+            color: $white;
+            .mat-expansion-indicator {
+                &::after {
+                    color: $white;
+                }
+            }
+        }
+    }   
+
+
+

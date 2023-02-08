@@ -1,0 +1,25 @@
+ let navigationExtras: NavigationExtras = {
+      queryParams: {
+        "Cat":'news',
+          "Title": Title
+          
+      },skipLocationChange:false, replaceUrl:false
+  };
+
+this.router.navigate(["readmore"], navigationExtras );
+
+
+
+
+Get Parameter on "readmore" page
+
+this.activateRoute.queryParams.subscribe(params=>
+      {
+        this.Title=params["Title"]
+         this.Category=params["Cat"]
+      }
+      );
+
+
+
+NOTE: no need to put anything in approuting.ts routing.

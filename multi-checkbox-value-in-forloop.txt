@@ -1,0 +1,25 @@
+<div class="form-check form-check-inline" *ngFor="let zone of tableList;">
+	<input class="form-check-input" (change)="zoneCheckbox($event,zone.ZId)"  type="checkbox"  [value]="zone.ZId">
+	<label class="form-check-label" for="{{zone.ZId}}"{{zone.ZName}}</label>
+</div>
+
+
+//ts file
+result: any[] = [];
+
+zoneCheckbox(event:any,ZId:any){
+  
+    const valueToPush1: {[key:string]: string} = {};
+    valueToPush1["zondid"]=ZId;
+   
+    if (event.target.checked) {
+      this.result.push(ZId);
+    } else {
+      var index = this.result.indexOf(ZId);
+       this.result.splice(index,1);
+    }
+
+    this.beforearray=JSON.stringify(this.result.toString().replace(/['"]+/g, ''));
+    console.log("beforeiterate",this.beforearray);
+   
+  }

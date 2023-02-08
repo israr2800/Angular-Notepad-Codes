@@ -1,0 +1,42 @@
+CREATED FOR SO THAT IT WILL WORK IN ANY VERSION OF ANGULAR (CREATED ON ANGULAR V-15)
+
+1. create a pipe name 'search' or give any name;
+
+
+// search.pipe.ts file
+
+  transform(value: any, args?: any): any {
+   
+    if(!value)return null;
+    if(!args)return value;
+
+    args = args.toLowerCase();
+
+    return value.filter(function(item: any){
+        return JSON.stringify(item).toLowerCase().includes(args);
+    });
+
+  }
+
+
+
+// component html file
+
+<input type="text" class="form-control" placeholder="searching..." [(ngModel)]="tableSearch" />
+
+<tr *ngFor="let item of myData | search: tableSearch">
+                    <td>{{item.id}}</td>
+                    <td>{{item.title}}</td>
+                    <td>{{item.userId}}</td>
+                    <td>{{item.completed}}</td>
+                </tr>
+
+
+NOTE: If using pagination make sure to apply search-filter before pagination
+
+
+// component ts file
+
+tableSearch = "";
+
+

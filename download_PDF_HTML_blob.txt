@@ -1,0 +1,66 @@
+//Install filer save first
+npm i file-saver --save-dev
+
+
+// in service file
+
+    const token = this.jwtAuth.getJwtToken(); // attach token
+    let headers = new HttpHeaders();
+    headers = headers.append('Content', 'application/json');
+    headers = headers.append('Authorization', 'Bearer ' + token);
+
+return this.httpClient.get(url, {headers:headers, responseType: 'blob'})
+
+// do not forget to includ "responseType: 'blob'";
+
+// can use pipe if want as below:-
+
+    // .pipe(
+    //   map((response: any) => {
+    //     console.log("response: ", response);
+    //   }),
+    //   catchError((error) => {
+    //     return throwError(error);
+    //   })
+    // );
+
+
+//in component ts file:
+
+downloadReport() {
+    this.adminService.downloadFile().subscribe({
+      next: (res:any) =>{
+
+        var blob = new Blob([res], { type: 'PDF' }); // important to include
+        saveAs(blob, 'report.pdf'); // important to include
+
+      },
+      error: (err:any) =>{
+        this.notify.notify('Unable to download MIS Report','top','error')
+      }
+    })
+ }
+
+================================================================
+
+// if want to show HTMl use..
+
+// do not forget to include "responseType: 'text'";
+
+downloadReport() {
+    this.adminService.downloadFile().subscribe({
+      next: (res:any) =>{
+	
+	this.data = res;
+
+      },
+      error: (err:any) =>{
+        this.notify.notify('Unable to download MIS Report','top','error')
+      }
+    })
+ }
+
+
+//in html file
+
+<div [innerHtml]='data'></div>

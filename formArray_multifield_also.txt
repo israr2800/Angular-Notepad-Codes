@@ -1,0 +1,96 @@
+//source site: https://stackblitz.com/edit/form-array-angular?file=src%2Fapp%2Fapp.component.ts
+
+//component html file
+
+<form [formGroup]="addForm" [ngClass]="errorOccured? 'has-error':''">
+
+    <input type="text" formControlName="username" [(ngModel)]="_username" placeholder="username">
+    
+	<span *ngIf="errorOccured && addForm.get('username').hasError('required')">required</span>	
+    <span *ngIf="errorOccured && addForm.get('username').hasError('pattern')">Only text Allowed</span>
+
+
+    <input type="text" formControlName="age" [(ngModel)]="_age" placeholder="age">
+
+    <p>&nbsp;</p>
+    <p class="heading">Inner Form</p>
+
+    <div formArrayName="formArray" *ngFor="let item of addForm.get('formArray').controls; let i = index;">
+
+        <div [formGroupName]="i">
+            <input type="text" formControlName="mobile" [ngClass]="" placeholder="mobile">
+
+            <span *ngIf="arrayError && item.controls.mobile.errors">
+                <span *ngIf="item.controls['mobile'].errors?.required">Required</span>
+                <span *ngIf="item.controls['mobile'].errors?.pattern">Only Number Allowed</span>
+            </span>
+            
+            <input type="text" formControlName="email" placeholder="email">
+            <button (click)="removeSkill(i)">Remove</button>
+        </div>
+
+    </div>
+    
+    <button (click)="addMore()">Add More</button>
+
+    <button (click)="submitButton()">Submit Form</button>
+</form>
+
+
+//component ts file
+	
+errorOccured: boolean = false;
+  arrayError: boolean = false;
+
+  addForm: FormGroup | any;
+  formArray: FormArray | any;
+  innerArray:boolean =false;
+
+_username: any;
+_age:any;
+
+
+
+initForm() {
+    this.addForm = this.fb.group({
+      'username': new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z]*')]),
+      'age': new FormControl('', Validators.required),
+      'formArray': this.fb.array([]),
+    })
+  }
+
+  createGroup(): FormGroup {
+    return this.fb.group({
+      'mobile': new FormControl('', [Validators.required, Validators.pattern('[0-9]*')]),
+      'email': new FormControl(''),
+    })
+  }
+
+addMore() {
+    this.formArray = this.addForm.get('formArray') as FormArray;
+    this.formArray.push(this.createGroup());
+  }
+
+
+removeSkill(i:any) {
+    this.formArray.removeAt(i);
+  }
+
+submitButton() {
+    
+    this.errorOccured = true;
+    this.arrayError = true; //  inner array validation (true false)
+  
+    if(!this.addForm.valid) {
+      alert('form has errors')
+    }
+    else {
+      console.log("form value: ", this.addForm.value);
+      
+	let formArrayValue = this.addForm.get('formArray').value; // to get form array value
+      let newValue = formArrayValue[0].mobile // to show formArray index value
+
+      console.log("form array value: ", this.arrayOne);
+    }
+
+  }

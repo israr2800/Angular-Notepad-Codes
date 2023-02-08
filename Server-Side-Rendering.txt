@@ -1,0 +1,11 @@
+//INSTALL BY RUNNING CLI
+ng add @nguniversal/express-engine --clientProject projectNameHere
+
+
+//then build in terminal using:
+npm run build:ssr
+
+//ssr means Server-side-rendring
+
+//then run local server:
+npm run serve:ssr

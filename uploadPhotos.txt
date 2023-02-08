@@ -1,0 +1,78 @@
+// common service
+
+uploadPhoto(profileImage: File): Observable<any> {
+  var formData: any = new FormData();
+ formData.append("avatar", profileImage);
+
+  return this.httpClient.post('photoapihere', formData, {
+    reportProgress: true,
+    observe: 'events'
+  })
+}
+
+
+//page ts file
+
+initForm() {
+    this.addForm = this.fb.group({
+      avatar: [null], // add a additional avatar control in form group
+    })
+  }
+
+progress: number = 0;
+
+ uploadImageChange(event:any) {
+
+    var nativeElement = event.target as HTMLInputElement as HTMLInputElement
+    const file = nativeElement?.files?.item(0);
+    
+    this.addForm.patchValue({
+      avatar: file
+    });
+
+    this.addForm.get('avatar').updateValueAndValidity()
+
+
+    this.common.uploadPhoto(
+
+      this.addForm.value.avatar
+    ).subscribe((event: HttpEvent<any>) => {
+     
+      switch (event.type) {
+        case HttpEventType.Sent:
+          console.log('Request has been made!');
+          break;
+        case HttpEventType.ResponseHeader:
+          console.log('Response header has been received!');
+          break;
+        case HttpEventType.UploadProgress:
+         
+          event.total=0;
+          this.progress = Math.round(event.loaded / event.total * 100);
+          
+          console.log(`Uploaded! ${this.progress}%`);
+          break;
+        case HttpEventType.Response:
+          console.log('File Upload Sucessfully!', event.body);
+          this._uploadImage = event.body;
+          console.log("urlreceived", this._uploadImage);
+          setTimeout(() => {
+            this.progress = 0;
+          }, 1500);
+      
+    }
+    })
+  }
+
+
+
+
+//html file
+<div class="input-field full">
+<p>ALLOWANCE PDF</p>
+<input type="file" formControlName="uploadImage" [(ngModel)]="_uploadImage" />
+<mat-progress-bar mode="determinate" [value]="progress"></mat-progress-bar>
+                        
+<input type="file" id="uploadImage" accept="image/*" name="file" (change)="uploadImageChange($event)" class="d-none">
+<label for="uploadImage" class="buttonInfoOutline w-100 mt-2">Upload Image</label>
+</div>

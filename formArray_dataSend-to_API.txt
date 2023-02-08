@@ -1,0 +1,32 @@
+component ts file:
+
+addArrayForm: FormGroup | any;
+
+
+
+submitButton() {
+    
+    this.errorOccured = true;
+    this.arrayError = true; //  inner array validation (true false)
+  
+    if(!this.addForm.valid) {
+      alert('form has errors')
+    }
+    else {
+
+		// to converts formarray into new array to send data into api
+
+		let data = 	this.addArrayForm.value.formArray.map((data:any) => {
+			return data
+		})
+	
+		console.log(data)
+		
+		this.commonService.addAllArrayData(data).subscribe((res:any) => {
+			console.log("Data sent to api: ", result)
+		})
+
+
+    }
+
+  }

@@ -1,0 +1,11 @@
+
+import { DateAdapter } from '@angular/material/core';
+
+constructor(public dateAdapter: DateAdapter<Date>) {
+    this.dateAdapter.setLocale('en-IN'); // for dd/MM/yyyy
+	
+	// Frence "fr-FR" for dd/mm/yyyy
+	// US "en-US" for mm/dd/yyyy
+	// India "hi-GB" for dd/MM/yyyy
+
+}

@@ -1,0 +1,40 @@
+
+<tr *ngFor="let item of myData">
+                <td>{{item.id}}</td>
+                <td>{{item.title}}</td>
+                <td>
+                    <input type="text" [(ngModel)]="item.userId">
+                </td>
+                <td>{{item.completed}}</td>
+                <td>
+                    <button class="btn btn-sm btn-primary" routerLink="/update-data/{{item.id}}">Edit</button>
+                    <button (click)="deleteData(item.id)" class="btn btn-sm btn-danger">Delete</button>
+                    <button (click)="dec(item)">-</button>
+                    <button (click)="inc(item)">+</button>
+                </td>
+            </tr>
+
+
+
+//item is from = let 'item' of myData"
+
+  dec(item: any) {
+
+    if(item.userId <= 1) {
+      alert("cannot go below 1");
+    }
+    else {
+     item.userId--
+    }
+
+  }
+
+  inc(item: any) {
+
+    if (item.userId >= 5) {
+      alert("cannot go above 5");
+    }
+    else {
+      item.userId++;
+    }  
+  }

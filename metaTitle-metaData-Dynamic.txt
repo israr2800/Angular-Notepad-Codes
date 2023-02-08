@@ -1,0 +1,12 @@
+public setTitle: Title === add instances in constructor
+public metaService: Meta === add instances in constructor
+
+
+//this will go insight ngInit()
+
+addTag() {
+	var pagetitle = "single page application"
+	this.setTitle.setTitle(pagetitle);
+	this.metaService.addTag({name: 'keywords', content: 'keywords1, keywords2'});
+	this.metaService.addTag({name: 'descriptions', content: 'blog page description'});
+ }

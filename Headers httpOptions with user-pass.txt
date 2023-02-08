@@ -1,0 +1,41 @@
+1. METHOD ONE (RECOMMENDED)
+
+    const token = this.jwtAuth.getJwtToken(); // attach token
+
+    let headers = new HttpHeaders();
+    headers = headers.append('Content', 'application/json');
+    headers = headers.append('Authorization', 'Bearer ' + token);
+
+return this.httpClient.get(url, {headers:headers})
+
+// can use pipe if want as below:-
+
+    // .pipe(
+    //   map((response: any) => {
+    //     console.log("response: ", response);
+    //   }),
+    //   catchError((error) => {
+    //     return throwError(error);
+    //   })
+    // );
+
+
+
+2. METHOD SECOND
+
+
+let jsonBody = JSON.stringify({
+      "ExamBody": type
+    })
+
+
+const headerOptions= ({
+          headers:  new HttpHeaders({
+            'Content-Type':'application/json',
+            'Authorization':'basic '+ btoa("InsightUser"+':'+"Baliyan@1234#"),  // authenca.
+            'X-ApiKey':'MyRandomApiKeyValue' // apikey if mentioned else remove
+            
+          })
+        })
+
+return this.httpClient.post('apiLinkHere', jsonBody, headerOptions)

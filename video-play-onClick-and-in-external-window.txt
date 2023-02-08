@@ -1,0 +1,10 @@
+PlayMe() {
+    let myVideo = <HTMLVideoElement> document.querySelector("#myVideo");
+    myVideo.play();
+  }
+
+// play in external window in same app
+  PlayMeExternal() {
+    let myVideo = <HTMLVideoElement> document.querySelector("#myVideo");
+    window.open(myVideo.currentSrc, "_system");
+  }

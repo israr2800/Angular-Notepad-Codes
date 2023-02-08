@@ -1,0 +1,8 @@
+//in app-component.ts file add below code on ngOnInit
+
+this.router.events.subscribe((evt) => {
+      if (!(evt instanceof NavigationEnd)) {
+          return;
+      }
+      window.scrollTo(0, 0)
+    });

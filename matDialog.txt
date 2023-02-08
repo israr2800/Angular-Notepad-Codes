@@ -1,0 +1,74 @@
+//material source site: https://material.angular.io/components/dialog/examples
+
+//better described here
+https://blog.angular-university.io/angular-material-dialog/
+
+-----------------------
+
+//FIRST INSTALL ANGULAR MATERIAL IN ANGULAR PROJECT
+
+//IMPORT IN NG MODULE APP MODULE
+import {MatDialogModule} from '@angular/material/dialog';
+
+
+//CREATE A REGULAR PAGE LIKE:
+	dialogComponent
+
+
+//DIALOG HTML
+
+<div class="dialog-wrapper">
+<p class="heading">{{heading}}</p>
+<div class="subheading">{{message}}</div>
+<div mat-dialog-actions>
+    <button mat-button mat-dialog-close cdkFocusInitial>Ok</button>
+</div>
+</div>
+
+//DIALOG css file
+
+.dialog-wrapper {
+    width: 250px;
+}
+
+//DIALOG TS FILE
+
+  heading: any;
+  message: any;
+
+constructor( private dialogRef: MatDialogRef<DialogComponent>, @Inject(MAT_DIALOG_DATA) data: any )
+{
+    this.heading = data.heading;
+    this.message = data.message;
+  }
+
+// close alert by this button
+close() {
+    this.dialogRef.close();
+ }
+
+//auto close after 2 second
+ngOnInit(): void {
+    setTimeout(() => {
+      this.dialogRef.close();
+    }, 2000);
+}
+
+
+//COMMON SERVICE TS FILE
+
+openDialog(heading: any, message: any): void {
+    const dialogConfig = new MatDialogConfig();
+    
+    // dialogConfig.disableClose = true;
+    // dialogConfig.autoFocus = true;
+    
+    dialogConfig.data = {
+      heading: heading,
+      message: message
+    };
+
+    this.dialog.open(DialogComponent, dialogConfig); 
+
+  }
+

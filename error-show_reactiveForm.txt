@@ -1,0 +1,73 @@
+1. METHOD ONE (Recommended)
+
+	// component html file
+	
+	<form [formGroup]="addForm" [ngClass]="errorOccured? 'has-error':''">
+
+	<input type="text" formControlName="username" [(ngModel)]="_username" placeholder="username">
+
+	<span *ngIf="errorOccured && addForm.get('username').hasError('required')">username cannot be empty</span>
+	<span *ngIf="errorOccured && addForm.get('username').hasError('pattern')">Only number allowed</span>
+
+
+
+	// component ts file
+
+	this.addForm = this.fb.group({
+      	'username': new FormControl('', [Validators.required, Validators.pattern('[0-9]')]),
+      	'age': new FormControl('', Validators.required),
+   	})
+
+	//on submit button make 
+		this.errorOccured  = (true false)
+
+	// dont have to type anything else in ts file in this method
+
+
+--------------------------------------------------
+
+2. IF USING DYNAMIC FORM ARRAY
+
+	//component ts file
+		arrayError = (true false)
+
+	// component html file
+
+		<div formArrayName="formArray" *ngFor="let item of addForm.get('formArray').controls; let i = index;"></div>
+
+		<span *ngIf="arrayError && item.controls.mobile.errors">
+                <span *ngIf="item.controls['mobile'].errors?.required">Required</span>
+                <span *ngIf="item.controls['mobile'].errors?.pattern">Only Number Allowed</span>
+            </span>
+
+	
+---------------------------------------------------------
+
+2. METHOD SECOND
+
+// component html 
+
+<form [formGroup]="addForm" [ngClass]="errorOccured? 'has-error':''">
+<input type="text" formControlName="username" [(ngModel)]="_username" placeholder="username">
+
+   <span *ngIf="errorOccured && addForm.controls.username.errors">
+        <span *ngIf="username.errors?.required">username cannot be empty</span>
+        <span *ngIf="username.errors?.pattern">only numbers allowed</span>
+    </span>
+
+
+
+
+// component ts file
+
+this.addForm = this.fb.group({
+      'username': new FormControl('', [Validators.required, Validators.pattern('[0-9]')]),
+      'age': new FormControl('', Validators.required),
+   })
+
+get username() {
+    return this.addForm.get('username')
+ }
+
+//on submit button make 
+	this.errorOccured  = (true false)

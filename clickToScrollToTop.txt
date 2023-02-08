@@ -1,0 +1,5 @@
+import to constructor : public viewportScroller: ViewportScroller
+
+scrollToTop() {
+    this.viewportScroller.scrollToPosition([100,0]);
+  }

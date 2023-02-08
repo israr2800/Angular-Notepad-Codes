@@ -1,0 +1,45 @@
+// https://www.lightgalleryjs.com/
+
+npm install lightgallery
+
+import { LightgalleryModule } from 'lightgallery/angular';
+
+@NgModule({
+    imports: [LightgalleryModule],
+})
+
+//scsss
+@import '~lightgallery/scss/lightgallery';
+
+
+//html
+
+ <lightgallery [settings]="settings" [onBeforeSlide]="onBeforeSlide">
+            <a href="img/img1.jpg">
+                <img alt="img1" src="img/thumb1.jpg" />
+            </a>
+            <a href="img/img1.jpg">
+                <img alt="img2" src="img/thumb1.jpg" />
+            </a>
+</lightgallery>
+
+
+//ts file
+
+import lgThumbnail from 'lightgallery/plugins/thumbnail';
+import lgZoom from 'lightgallery/plugins/zoom';
+import {BeforeSlideDetail} from 'lightgallery/lg-events';
+
+ settings = {
+    // counter: true,
+    // controls: true,
+    plugins: [lgZoom, lgThumbnail],
+    zoom : true,
+    enableZoomAfter: 10,
+    thumbnail: true,
+  };
+
+onBeforeSlide = (detail: BeforeSlideDetail): void => {
+      const { index, prevIndex } = detail;
+      console.log(index, prevIndex);
+  };

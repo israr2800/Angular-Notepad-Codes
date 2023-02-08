@@ -1,0 +1,26 @@
+// INSTALL
+https://github.com/tinymce/tinymce-angular
+
+//SOURCE URL
+https://github.com/tinymce/tinymce-angular
+
+// HTML PAGE
+
+<editor formControlName="description" [(ngModel)]="description" #editor apiKey="lt10urs09hdy1kg8q94wlsnttvxnuo2kh3a02s59nox2qsp7" [init]="{
+                                        height: 500,
+                                        menubar: true,
+                                        plugins: [
+                                          'advlist autolink lists link image charmap print preview anchor',
+                                          'searchreplace visualblocks code fullscreen',
+                                          'insertdatetime media table paste code help wordcount'
+                                        ],
+                                        toolbar:
+                                          'undo redo | formatselect | bold italic backcolor | \
+                                          alignleft aligncenter alignright alignjustify | \
+                                          bullist numlist outdent indent | removeformat | help'
+                                      }"></editor>
+
+
+
+// IMPORT IN MODULE FILE
+EditorModule,

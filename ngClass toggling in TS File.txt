@@ -1,0 +1,7 @@
+@ViewChild('myElement') myElement: ElementRef;
+
+this.myElement.nativeElement.className = 'disable';
+
+else  
+
+this.myElement.nativeElement.className = 'disable';
