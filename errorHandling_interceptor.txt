@@ -1,0 +1,49 @@
+1. first create error.interceptor page
+
+//error.interceptor ts file
+
+	intercept(
+    request: HttpRequest<any>,
+    next: HttpHandler): Observable<HttpEvent<any>> {
+    
+      return next.handle(request)
+      .pipe(
+        retry(1),
+        catchError((error: HttpErrorResponse) => {
+            let errorMessage = '';
+            if (error.error instanceof ErrorEvent) {
+                // client-side error
+                errorMessage = `Error: ${error.error.message}`;
+            } else {
+                // server-side error
+                errorMessage = `Error Status: ${error.status}\nMessage: ${error.message}`;
+            }
+
+            if(error.status == 400) {
+              alert('Invalid User/Pass');
+            }
+            else if (error.status === 404) {
+              alert("Url Not Found")
+            }
+            else if (error.status === 401) {
+              alert("UnAuthorized Access");
+            }
+
+            console.log("err Occ: ", errorMessage);
+            return throwError(() => errorMessage);
+            
+        })
+    )
+
+  }
+
+
+//app.module ts file
+	providers: [
+	{
+    provide: HTTP_INTERCEPTORS,
+    useClass: ErrorInterceptor,
+    multi: true
+   }	
+]
+

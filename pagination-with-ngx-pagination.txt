@@ -1,0 +1,22 @@
+https://www.npmjs.com/package/ngx-pagination/v/5.1.1
+
+npm i ngx-pagination@5.1.1
+
+//import in app.module:
+	import {NgxPaginationModule} from 'ngx-pagination'; // <-- import the module
+	NgxPaginationModule
+
+
+//in ts file declare property:
+  p: number = 1;
+
+//in html page where showing api for loop array response e.g. below:
+
+<li *ngFor="let item of collection | paginate: { itemsPerPage: 10, currentPage: p }"> ... </li>
+
+///put this for pagination in the html file:
+<pagination-controls (pageChange)="p = $event" [autoHide]="true"></pagination-controls>
+
+
+
+

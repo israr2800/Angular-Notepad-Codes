@@ -1,0 +1,99 @@
+//source site: https://www.positronx.io/angular-error-handling-tutorial-with-examples/
+
+1. METHOD ONE (RECOMMENDED)
+
+1. first create error.interceptor page
+
+//error.interceptor ts file
+
+	intercept(
+    request: HttpRequest<any>,
+    next: HttpHandler): Observable<HttpEvent<any>> {
+    
+      return next.handle(request)
+      .pipe(
+        retry(1),
+        catchError((error: HttpErrorResponse) => {
+            let errorMessage = '';
+            if (error.error instanceof ErrorEvent) {
+                // client-side error
+                errorMessage = `Error: ${error.error.message}`;
+            } else {
+                // server-side error
+                errorMessage = `Error Status: ${error.status}\nMessage: ${error.message}`;
+            }
+
+            if(error.status == 400) {
+              alert('Invalid User/Pass');
+            }
+            else if (error.status === 404) {
+              alert("Url Not Found")
+            }
+            else if (error.status === 401) {
+              alert("UnAuthorized Access");
+            }
+
+            console.log("err Occ: ", errorMessage);
+            return throwError(() => errorMessage);
+            
+        })
+    )
+
+  }
+
+
+//app.module ts file
+	providers: [
+	{
+    provide: HTTP_INTERCEPTORS,
+    useClass: ErrorInterceptor,
+    multi: true
+   }	
+]
+
+
+
+-------------------------------------------------------
+
+
+2. METHOD SECOND
+
+//service ts file
+	
+errorHandlingPage(userid:any, pass:any): Observable<any> {
+  
+  let jsonBody = JSON.stringify({
+    'username' : userid,
+    'password' : pass,
+  })
+
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json'
+    })
+  }
+
+  return this.httpClient.post(environment.loginApi + '/auth/login', jsonBody, httpOptions)
+  .pipe(
+  	retry(1),
+  	catchError(this.handleError)
+  )
+
+}
+
+
+handleError(error:any) {
+  let errorMessage = '';
+  if (error.error instanceof ErrorEvent) {
+    // client-side error
+    errorMessage = `Error: ${error.error.message}`;
+  } else {
+    // server-side error
+    errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+  }
+  console.log(errorMessage);
+  return throwError(() => {
+      return errorMessage;
+  });
+}
+

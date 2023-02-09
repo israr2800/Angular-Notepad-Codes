@@ -1,0 +1,3 @@
+[ngClass]="fixedHeader ? 'stickyHeader' : '' "
+
+if "fixedHeader" is true then put class "stickyHeader" else "_blank"

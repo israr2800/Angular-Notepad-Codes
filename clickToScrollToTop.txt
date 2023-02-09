@@ -1,0 +1,10 @@
+//updated 
+import to constructor : public viewportScroller: ViewportScroller
+
+// notepad branch
+
+// Baijanti Branch
+
+scrollToTop() {
+    this.viewportScroller.scrollToPosition([100,0]);
+  }

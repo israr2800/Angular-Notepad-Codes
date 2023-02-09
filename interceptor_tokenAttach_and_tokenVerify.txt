@@ -1,0 +1,38 @@
+//create interceptor
+
+//app.module.ts
+providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor, // name of interceptor file
+      multi: true,
+    }
+ ],
+
+
+//in the inceceptor file
+
+intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+
+	//Setting token in header to attach in all http Request
+
+    let tokenData = request.clone({
+      setHeaders: {
+        Authorization: `Bearer ${this.authService.getToken()}`
+      }
+    })
+
+    return next.handle(tokenData).pipe(
+      catchError((error)=>{
+		//verifying token wheather valid or not
+        if(error instanceof HttpErrorResponse) {
+          if(error.status === 401) {
+            this.router.navigateByUrl('/auth-login');
+            alert('Token not valid:- Un-Authorized ')
+          }
+        }
+        return throwError(()=>error);
+      })
+    );
+    
+  }

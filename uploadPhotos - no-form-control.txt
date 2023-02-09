@@ -1,0 +1,61 @@
+// common service
+
+uploadPhoto(profileImage: File): Observable<any> {
+  var formData: any = new FormData();
+ formData.append("avatar", profileImage);
+
+  return this.httpClient.post('photoapihere', formData, {
+    reportProgress: true,
+    observe: 'events'
+  })
+}
+
+
+//page ts file
+
+ progress: number = 0;
+
+ uploadImageChange(event:any) {
+
+ let file = event.target.files[0];(0);
+  
+    this.common.uploadPhoto(file).subscribe((event: HttpEvent<any>) => {
+     file
+      switch (event.type) {
+        case HttpEventType.Sent:
+          console.log('Request has been made!');
+          break;
+        case HttpEventType.ResponseHeader:
+          console.log('Response header has been received!');
+          break;
+        case HttpEventType.UploadProgress:
+         
+          event.total=0;
+          this.progress = Math.round(event.loaded / event.total * 100);
+          
+          console.log(`Uploaded! ${this.progress}%`);
+          break;
+        case HttpEventType.Response:
+          console.log('File Upload Sucessfully!', event.body);
+          this._uploadImage = event.body;
+          console.log("urlreceived", this._uploadImage);
+          setTimeout(() => {
+            this.progress = 0;
+          }, 1500);
+      
+    }
+    })
+  }
+
+
+
+
+//html file
+<div class="input-field full">
+<p>ALLOWANCE PDF</p>
+<input type="file" formControlName="uploadImage" [(ngModel)]="_uploadImage" />
+<mat-progress-bar mode="determinate" [value]="progress"></mat-progress-bar>
+                        
+<input type="file" id="uploadImage" accept="image/*" name="file" (change)="uploadImageChange($event)" class="d-none">
+<label for="uploadImage" class="buttonInfoOutline w-100 mt-2">Upload Image</label>
+</div>

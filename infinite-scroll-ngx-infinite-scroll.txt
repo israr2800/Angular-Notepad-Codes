@@ -1,0 +1,52 @@
+https://www.npmjs.com/package/ngx-infinite-scroll/v/13.0.0
+
+loadmoreData: any =[];
+
+//use html code at the bottom
+
+<div
+        class="search-results"
+        infiniteScroll
+        [infiniteScrollDistance]="2"
+        [infiniteScrollThrottle]="50"
+        (scrolled)="onScroll()"
+    ></div>
+
+
+
+showapiList() {
+    this.common.showapi().subscribe({
+      next: (res) =>{
+        this.myData = res;
+
+        if(this.myData.length > 20) {
+          for(var i = 0; i < 20; i++) {
+            this.loadmoreData.push(this.myData[this.loadmoreData.length]);
+            console.log("current list: ", this.loadmoreData); 
+          }
+        }
+        else {
+          this.loadmoreData = this.myData;
+        }
+
+      }
+    })
+  }
+
+
+
+
+
+onScroll() {
+    console.log("infinite scrolled!!");
+
+    if(this.loadmoreData.length < this.myData.length) {
+      for(var i = 0; i < 20; i++) {
+        this.loadmoreData.push(this.myData[this.loadmoreData.length]);
+      }
+    }
+    else {
+      console.log("all data loaded"); 
+    }
+
+  }

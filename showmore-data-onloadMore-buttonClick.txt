@@ -1,0 +1,23 @@
+ this.questionListResult = data == receiving data from API here
+ this.totalquestion = this.questionListResult.length; === finding list data length
+ this.loadmoredata = []  ===== this must a array
+
+if (this.questionListResult.length > 2) {
+      for(var i = 0; i < 2; i++) {
+        this.loadmoredata.push(this.questionListResult[this.loadmoredata.length]);
+      }
+    }
+    else {
+     this.loadmoredata = this.questionListResult;
+    }
+
+ showData() {
+    setTimeout(() => {
+      if(this.loadmoredata.length<this.totalquestion){
+      for (var i = 0; i < 2; i++) {
+          this.loadmoredata.push(this.questionListResult[this.loadmoredata.length]);
+        }  
+    }
+  },500);
+  }
+

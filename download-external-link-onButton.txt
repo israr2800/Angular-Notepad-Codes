@@ -1,0 +1,8 @@
+download(photo: any) {
+    
+    console.log("photo details: ", photo);
+
+    let link="http://docs.google.com/viewer?url=" +  encodeURIComponent(photo) + "&embedded=true";
+    window.open(link, "_blank", "location=no,toolbar=no,hardwareback=yes");
+
+  }

@@ -1,0 +1,38 @@
+https://www.npmjs.com/package/ngx-youtube-player
+
+npm i ngx-youtube-player
+
+
+// html
+<youtube-player
+      [videoId]="id"
+      (ready)="savePlayer($event)"
+      (change)="onStateChange($event)"
+    ></youtube-player>
+
+
+//ts file
+  id = 'QibLMfl5yf0';
+  private player: any;
+
+
+savePlayer(player: any) {
+    this.player = player;
+    console.log('player instance', player);
+  }
+
+  onStateChange(event: any) {
+    console.log('player state', event.data);
+  }
+
+
+videoPlay() {
+    this.player.playVideo();
+  }
+
+  videoPause() {
+    this.player.pauseVideo();
+  }
+
+
+

@@ -1,0 +1,34 @@
+1. RECOMMENDED METHOD USING "DATA" IN ROUTING
+
+//in app routing ts file
+
+{
+    path:'passing-routing-data',
+    component: PassingRoutingDataComponent,
+    data: {id: 1, name: "israr ahmad"} // passing as objects
+  },
+
+
+//in component ts file
+
+routingData: any;
+
+this.activatedRoute.data.subscribe((res) =>{
+      this.routingData = res['name'];
+})
+
+
+==================================
+
+2. WHEN PASSING DATA USING "NAVIGATION EXTRAS"
+
+// in ts file while routing to another page;
+
+passData() {
+        this.router.navigateByUrl('/passing-routing-data', { state: {id:1, name: 'israr ahmad'}})
+    }
+
+//on fetch under ngOnInit
+	this.routingData = this.location.getState()
+	console.log("pas data: ", this.routingData.name);
+
