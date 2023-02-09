@@ -3,6 +3,7 @@ component ts file:
 addArrayForm: FormGroup | any;
 
 //test baijanti
+//Read Only
 
 submitButton() {
     
